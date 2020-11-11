@@ -35,6 +35,6 @@ def segunda_task(ts):
 
 if __name__ == '__main__':
     numero = randint(1, 100)
-    data = datetime.now().strftime("%H:%M:%S-%m/%d/%Y")
+    timestamp = datetime.now().strftime("%H:%M:%S-%m/%d/%Y")
     primeira_task(numero)
     segunda_task(timestamp)
