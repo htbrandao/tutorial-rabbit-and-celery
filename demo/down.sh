@@ -10,6 +10,7 @@ echo "# removendo Celery"
 pkill -9 celery &
 
 echo "# removendo logs"
-rm -v *.log
+rm *.log
+rm ../*.log
 
 echo "# done"

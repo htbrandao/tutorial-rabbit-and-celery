@@ -7,7 +7,7 @@ from time import sleep
 from random import randint
 from datetime import datetime
 
-logger.add("tasks.log", rotation="1 MB")
+logger.add("celery_tasks.log", rotation="1 MB")
 
 rb_protocol = 'amqp'
 rb_user = 'arq30'
@@ -38,10 +38,9 @@ def segunda_task(n: int, ts: str):
 
 
 if __name__ == '__main__':
-    
-    while True:
-        ts = datetime.now().strftime("%H:%M:%S-%m/%d/%Y")
-        n = randint(1, 100)
-        primeira_task.apply_async(queue=rb_queue, args=[ts, n])
-        segunda_task.apply_async(queue=rb_queue, args=[ts, n])
-        sleep(2)
+    ts = datetime.now().strftime("%H:%M:%S-%m/%d/%Y")
+    n = randint(1, 100)
+    logger.info(ts, n)
+    primeira_task.apply_async(queue=rb_queue, args=[ts, n])
+    segunda_task.apply_async(queue=rb_queue, args=[ts, n])
+    sleep(2)

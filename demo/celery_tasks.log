@@ -1,0 +1,4 @@
+2020-11-12 16:52:04.943 | INFO     | celery_tasks:<module>:20 - Conectando em amqp://arq30:arq30@localhost:5672/
+2020-11-12 16:54:22.783 | INFO     | celery_tasks:<module>:20 - Conectando em amqp://arq30:arq30@localhost:5672/
+2020-11-12 16:54:58.079 | INFO     | celery_tasks:<module>:20 - Conectando em amqp://arq30:arq30@localhost:5672/
+2020-11-12 16:56:10.044 | INFO     | celery_tasks:<module>:20 - Conectando em amqp://arq30:arq30@localhost:5672/
