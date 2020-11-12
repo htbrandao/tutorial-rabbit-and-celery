@@ -7,8 +7,6 @@ from time import sleep
 from random import randint
 from datetime import datetime
 
-logger.add("celery_tasks.log", rotation="1 MB")
-
 rb_protocol = 'amqp'
 rb_user = 'arq30'
 rb_pass = 'arq30'
@@ -17,19 +15,17 @@ rb_port = '5672'
 rb_broker = f'{rb_protocol}://{rb_user}:{rb_pass}@{rb_host}:{rb_port}/'
 rb_queue = 'fila_guildarq30'
 
-logger.info(f'Conectando em {rb_broker}')
-
 celery = Celery('celery_tasks', broker=rb_broker)
 
 
-@celery.task()
+@celery.task(acks_late=True)
 def primeira_task(n: int, ts: str):
     s = f'sao {ts} e eu escrevo: {n}'
     logger.info('>> primeira_task')
     logger.info(s)
     return s
 
-@celery.task()
+@celery.task(acks_late=True)
 def segunda_task(n: int, ts: str):
     s = f'sao {ts} e eu escrevo: {n}'
     logger.info('>> primeira_task')
@@ -38,9 +34,12 @@ def segunda_task(n: int, ts: str):
 
 
 if __name__ == '__main__':
-    ts = datetime.now().strftime("%H:%M:%S-%m/%d/%Y")
-    n = randint(1, 100)
-    logger.info(ts, n)
-    primeira_task.apply_async(queue=rb_queue, args=[ts, n])
-    segunda_task.apply_async(queue=rb_queue, args=[ts, n])
-    sleep(2)
+    logger.add("celery_tasks.log", rotation="1 MB")
+    logger.info(f'Conectando em {rb_broker}')
+    while True:
+        ts = datetime.now().strftime("%H:%M:%S-%m/%d/%Y")
+        n = randint(1, 100)
+        logger.info(ts, n)
+        primeira_task.apply_async(queue=rb_queue, args=[ts, n])
+        segunda_task.apply_async(queue=rb_queue, args=[ts, n])
+        sleep(2)
