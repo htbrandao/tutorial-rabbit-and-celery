@@ -19,14 +19,16 @@ celery = Celery('celery_tasks', broker=rb_broker)
 
 
 @celery.task(acks_late=True)
-def primeira_task(n: int, ts: str):
+def processamento_lento(n: int, ts: str):
+    # TODO: processamento que demora muito
     s = f'ts:{ts} n: {n}'
-    logger.info('>> primeira_task')
+    logger.info('>> processamento_lento')
     logger.info(s)
     return s
 
 @celery.task(acks_late=True)
 def segunda_task(n: int, ts: str):
+    # TODO: pegar saida do processamento lento
     s = f'ts:{ts} n: {n}'
     logger.info('>> segunda_task')
     logger.info(s)
@@ -40,11 +42,11 @@ if __name__ == '__main__':
     
         ts = datetime.now().strftime("%H:%M:%S-%m/%d/%Y")
         n = randint(1, 100)
-        primeira = primeira_task.apply_async(queue=rb_queue, args=[n, ts])
+        lento = processamento_lento.apply_async(queue=rb_queue, args=[n, ts])
         logger.info(ts, n)
     
         ts = datetime.now().strftime("%H:%M:%S-%m/%d/%Y")
-        res = primeira.get()
+        res = lento.get()
         segunda = segunda_task.apply_async(queue=rb_queue, args=[res, ts])
         logger.info(ts, n)
         
