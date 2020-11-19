@@ -19,5 +19,5 @@ ___
 1- start rabbit
 2- start worker
 3- start flower
-4- run python
+4- run app
 ___
