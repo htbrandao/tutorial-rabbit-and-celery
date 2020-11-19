@@ -16,5 +16,8 @@ Web based tool for monitoring and administrating Celery clusters
 ___
 
 ## # Etc
-lorem ipsum
+1- start rabbit
+2- start worker
+3- start flower
+4- run python
 ___
