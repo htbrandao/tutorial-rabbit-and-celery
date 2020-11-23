@@ -13,17 +13,20 @@ rb_broker = f'{rb_protocol}://{rb_user}:{rb_pass}@{rb_host}:{rb_port}/'
 
 app = Celery('app', broker=rb_broker, backend='amqp')
 
+q1 = 'filarq30_1'
+q2 = 'filarq30_2'
 
-@app.task()
+
+@app.task
 def primeira_task(s):
+    print('1 >>')
     sleep(randint(2, 5))
-    print('t1 >>')
     s = s * randint(1, 5)
     return s
 
 
-@app.task()
+@app.task
 def segunda_task(s):
-    print('<< t2')
+    print('2 <<')
     s = f'INFO e ACAO {len(s.split())} VEZES'
     return s

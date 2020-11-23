@@ -14,8 +14,9 @@ if __name__ == '__main__':
     while True:
         try:
             print(f'*** {datetime.now()}')
-            _1 = primeira_task.apply_async(queue=q1, args=[s])
-            # _2 = segunda_task.apply_async(queues=q2, args=[_1.get()])
+            _1 = primeira_task.apply_async(args=[s], queue=q1)
+            _1 = _1.get()
+            _2 = segunda_task.apply_async(args=[_1], queue=q2)
             sleep(3)
         except KeyboardInterrupt:
             break
