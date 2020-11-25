@@ -41,7 +41,7 @@ Instead, the producer can only send messages to an exchange. An exchange is a ve
 
 There are a few exchange types available: **direct**, **topic**, **headers** and **fanout**.
 
-Fanout:
+- Fanout:
 
 ![](.img/exchange.png)
 
