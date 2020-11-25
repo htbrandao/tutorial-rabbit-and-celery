@@ -1,6 +1,7 @@
 # Rabbit MQ and Celery
 
-## # [Rabbit MQ](https://www.rabbitmq.com)
+![](.img/rabbit.png)
+# [Rabbit MQ](https://www.rabbitmq.com)
 
 ### 1 - Intro
 
@@ -46,38 +47,43 @@ Fanout:
 
 The fanout exchange, as you can probably guess from the name, it just broadcasts all the messages it receives to all the queues it knows.
 
-![](.img/)
-![](.img/)
-![](.img/)
-![](.img/)
-![](.img/)
-![](.img/)
-
-___
-
-## # [Celery](https://docs.celeryproject.org/en/stable/#)
+![](.img/celery.png)
+# [Celery](https://docs.celeryproject.org/en/stable/#)
 
 ### 1 - Intro
 
-### 2 - 
+A task queue’s input is a unit of work called a task. Dedicated worker processes constantly monitor task queues for new work to perform.
 
-### 3 - 
-___
+Celery communicates via messages, usually using a broker to mediate between clients and workers. To initiate a task the client adds a message to the queue, the broker then delivers that message to a worker.
 
-## # [Flower](https://flower.readthedocs.io/en/latest/)
+A Celery system can consist of multiple workers and brokers, giving way to high availability and horizontal scaling.
+
+Celery is written in Python.
+
+Celery requires a message transport to send and receive messages. The RabbitMQ and Redis broker transports are feature complete, but there’s also support for a myriad of other experimental solutions, including using SQLite for local development.
+
+### 2 - App
+
+The first thing you need is a Celery instance. We call this the Celery application or just app for short. As this instance is used as the entry-point for everything you want to do in Celery, like creating tasks and managing workers, **it must be possible for other modules to import it**.
+
+![](.img/celeryapp.png)
+
+You can now run the worker by executing our program with the worker argument.
+
+`$ celery -A tasks worker`
+
+# [Flower](https://flower.readthedocs.io/en/latest/)
 
 Web based tool for monitoring and 
-administrating Celery clusters
+administrating Celery clusters.
 
-### 1 - Intro
+Task progress and history.
 
-### 2 - 
+Ability to show task details (arguments, start time, runtime, and more).
 
-### 3 - 
+Graphs and statistics.
 
-___
-
-## # Putting it all together
+# Putting it all together
 
 Prepare the environment:
 
@@ -110,14 +116,8 @@ Monitor the queues and workers on:
 - RabbitMQ: [localhost:15762](localhost:15762)
 - Flower: [localhost:5555](localhost:5555)
 
-___
-
-## # Referências
+# Referências
 
 - [RabbitMQ Tutorials](https://www.rabbitmq.com/getstarted.html)
 - [Celery Documentation](https://docs.celeryproject.org/en/stable/getting-started/introduction.html)
 - [Flower Documentation](https://flower.readthedocs.io/en/latest/)
-- []()
-- []()
-- []()
-- []()
