@@ -91,7 +91,7 @@ Prepare the environment:
 
 `$ cd demo/`
 
-Start rabbit:
+Start Rabbit:
 
 `$ ./rabbit.sh`
 
@@ -103,7 +103,7 @@ Start worker #2:
 
 `$ ./worker2.sh`
 
-Start flower:
+Start Flower:
 
 `$ ./flower.sh`
 
